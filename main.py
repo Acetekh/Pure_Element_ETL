@@ -8,10 +8,10 @@ load_dotenv()
 db_pass = os.getenv('DB_PASSWORD')
 db_url = f'postgresql://postgres:{db_pass}@localhost:5432/vault_production'
 
-# 2. EXTRACT
+# 2. EXTRACT (raw data)
 df = pd.read_csv('vault.csv')
 
-# 3. TRANSFORM 
+# 3. TRANSFORM (categorize items)
 def categorize_item(item):
     if 'Gold' in item or 'Diamond' in item: return 'Fine Jewelry'
     if 'Watch' in item or 'Rolex' in item: return 'Luxury Timepieces'
@@ -20,7 +20,7 @@ def categorize_item(item):
 df['category'] = df['item_type'].apply(categorize_item)
 
 
-# 4. LOAD 
+# 4. LOAD (ending to postgresql)
 engine = create_engine(db_url)
 
 # This sends the data to a table name in my DBeaver
