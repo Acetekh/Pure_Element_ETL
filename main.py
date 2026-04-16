@@ -28,3 +28,5 @@ df.to_sql('vault_sales', engine, if_exists='replace', index=False)
 
 print("Pure Element raw data record is now in PostgreSQL")
 
+
+
